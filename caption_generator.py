@@ -61,7 +61,7 @@ def make_prediction(image_name):
   # pickle.dump(ixtoword, ixtowordf)
   max_length = 49
 
-  model_new=pickle.load(open('./Model/model_new.pickle','rb'))
+  model_new= load_model('Model/model_new.h5')
   loaded_model=load_model('Model/model_final.h5')
   model=loaded_model
 
@@ -69,6 +69,8 @@ def make_prediction(image_name):
 
   en=encode(ipath).reshape(1,-1)
   res=predict(en)
+
+  print(res)
   # x=plt.imread(ipath)
   # plt.figure(figsize = (10,10))
   # plt.imshow(x)

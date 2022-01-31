@@ -36,14 +36,7 @@ def print_caption(filename):
 @app.route('/')
 @cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
 def index():
-    return redirect('/static/')
-
-
-@app.route('/static/')
-@app.route('/static/caption_generator')
-@cross_origin(origin='localhost', headers=['Content- Type', 'Authorization'])
-def hello_world():
-    return render_template('index.html')
+    return jsonify({'message': 'server is working'})
 
 finished=False
 caption=''
@@ -94,4 +87,4 @@ def upload_file():
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(threaded=False)
+    app.run(host='localhost',port=5000,threaded=False,debug=False)
