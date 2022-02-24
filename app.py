@@ -19,7 +19,7 @@ app.config['SECRET_KEY'] = 'the quick brown fox jumps over the lazy dog'
 app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
-cors = CORS(app, resources={r"/foo": {"origins": "http://localhost:port"}})
+cors = CORS(app, resources={r"/foo": {"origins": "*"}})
 
 '''
 def print_caption(filename):
@@ -41,7 +41,6 @@ def index():
 finished=False
 caption=''
 @app.route('/static/uploads/', methods=['POST', 'GET', 'OPTIONS'])
-@cross_origin(origin='localhost', headers=['Content-Type', 'Authorization'])
 def upload_file():
     global finished
     # check if the post request has the file part
@@ -51,6 +50,8 @@ def upload_file():
         return resp
 
     files = request.files.getlist('files[]')
+
+    print(files)
 
     errors = {}
     success = False
@@ -87,4 +88,5 @@ def upload_file():
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host='localhost',port=5000,threaded=False,debug=False)
+    app.run(host='0.0.0.0',port=5000,threaded=True,debug=False)
+
