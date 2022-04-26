@@ -75,6 +75,7 @@ def upload_file():
     if success:
         resp = jsonify({'message': caption_generator.make_prediction(filename).capitalize()+'.'})
         resp.status_code = 201
+        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         return resp
     else:
         resp = jsonify(errors)
